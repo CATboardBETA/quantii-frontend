@@ -1,6 +1,6 @@
-all: clean dev cleanup
+all: dev cleanup
 
-build: clean release move cleanup
+build: release move cleanup
 
 dev:
 	@echo "Running dev-mode"
@@ -17,7 +17,3 @@ move:
 cleanup:
 	@echo "Cleaning up"
 	rm -rf ./dist
-
-clean:
-	@echo "Cleaning"
-	rm -rf ./dist ./target
