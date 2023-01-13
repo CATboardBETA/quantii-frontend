@@ -1,10 +1,11 @@
-use serde::{Deserialize, Serialize};
-use serde_wasm_bindgen::to_value;
+#![allow(non_snake_case)]
+
 use wasm_bindgen::prelude::*;
-use wasm_bindgen_futures::spawn_local;
 use yew::prelude::*;
 
 mod components;
+
+use components::*;
 
 #[wasm_bindgen]
 extern "C" {
@@ -18,4 +19,41 @@ extern "C" {
 #[function_component(App)]
 pub fn app() -> Html {
 
+    let launch_window = || {
+
+    };
+    let home_callback: Callback<MouseEvent, ()> = Callback::from(move |_| {
+        log("Home");
+        launch_window()
+    });
+
+    let items = vec![
+        SidebarItemProps {
+            name: AttrValue::from("home"),
+            icon: AttrValue::from("public/home.svg"),
+            callback: home_callback,
+        },
+        SidebarItemProps {
+            name: AttrValue::from("settings"),
+            icon: AttrValue::from("public/settings.svg"),
+            callback: Callback::noop(),
+        },
+    ];
+
+    let onclose = Callback::noop();
+    let onminimize = Callback::noop();
+    let onmaximize = Callback::noop();
+
+    html!{
+        <div class="row no-padding no-margin">
+            <Sidebar items={items} />
+            <Desktop>
+                <Window width=500 height=500 title="Test" onclose={onclose} onminimize={onminimize} onmaximize={onmaximize}>
+                    <div>
+                        {"Hello, world!"}
+                    </div>
+                </Window>
+            </Desktop>
+        </div>
+    }
 }

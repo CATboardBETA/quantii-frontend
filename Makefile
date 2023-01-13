@@ -4,7 +4,7 @@ build: release move cleanup
 
 dev:
 	@echo "Running dev-mode"
-	cargo tauri dev --verbose
+	cargo tauri dev
 
 release:
 	@echo "Building release"
@@ -12,7 +12,7 @@ release:
 
 move:
 	@echo "Moving files"
-	mv ./dist/*.wasm
+	mv ./dist/*.wasm ./target/
 
 cleanup:
 	@echo "Cleaning up"
