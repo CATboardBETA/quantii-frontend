@@ -1,6 +1,6 @@
-use yew::prelude::*;
-use yew::function_component;
 use std::format;
+use yew::function_component;
+use yew::prelude::*;
 
 #[derive(Clone, PartialEq, Properties)]
 pub struct SidebarProps {
@@ -9,15 +9,19 @@ pub struct SidebarProps {
 
 #[function_component]
 pub fn Sidebar(props: &SidebarProps) -> Html {
-    let items = props.items.iter().map(|item| {
-        html_nested!{
-            <SidebarItem
-                name={item.name.clone()}
-                icon={item.icon.clone()}
-                callback={item.callback.clone()}
-            />
-        }
-    }).collect::<Html>();
+    let items = props
+        .items
+        .iter()
+        .map(|item| {
+            html_nested! {
+                <SidebarItem
+                    name={item.name.clone()}
+                    icon={item.icon.clone()}
+                    callback={item.callback.clone()}
+                />
+            }
+        })
+        .collect::<Html>();
     html! {
         <div class="sidebar">
             {items}
@@ -34,7 +38,7 @@ pub struct SidebarItemProps {
 
 #[function_component]
 pub fn SidebarItem(props: &SidebarItemProps) -> Html {
-    html!{
+    html! {
         <div class={format!("sidebar-item sidebar-item-{}", props.name)}>
             <button type="button" class="sidebar-item-button" onclick={props.callback.clone()}>
                 <img class="sidebar-item-icon" src={props.icon.clone()} />

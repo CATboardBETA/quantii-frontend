@@ -9,6 +9,10 @@ pub struct WindowProps {
     pub onclose: Callback<MouseEvent, ()>,
     pub onminimize: Callback<MouseEvent, ()>,
     pub onmaximize: Callback<MouseEvent, ()>,
+    #[prop_or("".to_owned())]
+    pub class: String,
+    #[prop_or("".to_owned())]
+    pub id: String,
 }
 
 pub struct Window;
@@ -30,7 +34,7 @@ impl Component for Window {
         let onminimize = ctx.props().onminimize.clone();
         let onmaximize = ctx.props().onmaximize.clone();
 
-        html!{
+        html! {
             <div class="window column" style={format!("width={}; height={};", width, height)}>
                 <div class="window-title row">
                     <div class="window-title-text">{title}</div>

@@ -31,17 +31,6 @@ html {
   text-align: left;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: 0.75s;
-}
-
-.logo:hover {
-  filter: drop-shadow(0 0 .5em #24c8db);
-}
-
 .row {
   display: flex;
   flex-flow: nowrap row;
@@ -56,6 +45,10 @@ html {
   align-items: center;
 }
 
+.flex-center {
+  justify-content: center;
+  align-items: center;
+}
 
 a {
   font-weight: 500;
