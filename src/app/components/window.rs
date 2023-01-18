@@ -33,31 +33,27 @@ impl Component for Window {
         let onclose = ctx.props().onclose.clone();
         let onminimize = ctx.props().onminimize.clone();
         let onmaximize = ctx.props().onmaximize.clone();
+        let class = ctx.props().class.clone();
+        let id = ctx.props().id.clone();
 
         html! {
-            <div class="window column" style={format!("width={}; height={};", width, height)}>
+            <div class="window column" style={format!("width={}; height={};", width, height)} class={class} id={id}>
                 <div class="window-title row">
                     <div class="window-title-text">{title}</div>
                     <div class="window-title-buttons row">
                         <div class="window-title-button window-title-button-close">
                             <button type="button" class="window-title-button-close-button" onclick={onclose}>
-                                <svg class="window-title-button-close-icon" xmlns="http://www.w3.org/2000/svg">
-                                    <circle stroke="red" fill="red" cx="12" cy="12" r="10"></circle>
-                                </svg>
+                                <span class="dot window-title-button-close-icon window-button"></span>
                             </button>
                         </div>
                         <div class="window-title-button window-title-button-minimize">
                             <button type="button" class="window-title-button-minimize-button" onclick={onminimize}>
-                                <svg class="window-title-button-minimize-icon" xmlns="http://www.w3.org/2000/svg">
-                                    <circle stroke="yellow" fill="yellow" cx="12" cy="12" r="10"></circle>
-                                </svg>
+                                <span class="dot window-title-button-minimize-icon window-button"></span>
                             </button>
                         </div>
                         <div class="window-title-button window-title-button-maximize">
                             <button type="button" class="window-title-button-maximize-button" onclick={onmaximize}>
-                                <svg class="window-title-button-maximize-icon" xmlns="http://www.w3.org/2000/svg">
-                                    <circle stroke="green" fill="green" cx="12" cy="12" r="10"></circle>
-                                </svg>
+                                <span class="dot window-title-button-maximize-icon window-button"></span>
                             </button>
                         </div>
                     </div>

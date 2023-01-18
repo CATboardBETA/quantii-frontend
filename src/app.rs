@@ -1,16 +1,17 @@
 #![allow(non_snake_case)]
 
+use std::sync::Mutex;
 use rand::prelude::ThreadRng;
 use rand::RngCore;
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
-use yewdux::prelude::*;
 
 mod components;
 use components::*;
 
-#[derive(Store, PartialEq, Default)]
-struct UsedIds { ids: Vec<u32> }
+pub type UsedIds = Vec<u32>;
+
+pub static USED_IDS: Mutex<UsedIds> = Mutex::new(vec![]);
 
 #[wasm_bindgen]
 extern "C" {
@@ -71,15 +72,14 @@ pub fn app() -> Html {
 }
 
 fn random_id(mut rng: ThreadRng) -> String {
-    let (usedids, set_usedids) = use_store::<UsedIds>();
-    let id: u32 = rng.next_u32();
-    let not_foundid: bool = true;
+    let mut id: u32 = rng.next_u32();
+    let mut not_foundid: bool = true;
     while not_foundid {
-        if usedids.ids.contains(&id) {
-            let id: u32 = rng.next_u32();
+        if USED_IDS.lock().expect("Wha-whoa, spaghet-io!").contains(&id) {
+            id = rng.next_u32();
         } else {
-            set_usedids.reduce_mut_callback(|used_ids| used_ids.ids.push(id));
-            let not_foundid: bool = false;
+            USED_IDS.lock().expect("Wha-whoa, spaghet-io!").push(id);
+            not_foundid = false;
         }
     }
     id.to_string()

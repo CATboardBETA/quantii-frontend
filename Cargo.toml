@@ -14,7 +14,6 @@ web-sys = "0.3.59"
 yew = { version="0.20.0", features = ["csr"] }
 rand = { version = "0.8.5" }
 getrandom = { version = "0.2", features = ["js"] }
-yewdux = "0.9.0"
 
 [workspace]
 members = ["src-tauri"]
