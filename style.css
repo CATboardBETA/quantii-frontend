@@ -91,7 +91,7 @@ button {
   outline: none;
 }
 
-@media (prefers-color-scheme: dark) {
+@media screen and  (prefers-color-scheme: dark) {
   html {
     color: #f6f6f6;
     background-color: #2f2f2f;
@@ -113,7 +113,7 @@ button {
 
 }
 
-@media (prefers-color-scheme: light) {
+@media screen and (prefers-color-scheme: light) {
   html {
     color: #0f0f0f;
     background-color: #f6f6f6;
@@ -134,7 +134,7 @@ button {
   }
 }
 
-@media (prefers-color-scheme: no-preference) {
+@media screen and (prefers-color-scheme: no-preference) {
   html {
     color: #0f0f0f;
     background-color: #f6f6f6;
@@ -154,10 +154,12 @@ button {
     filter: invert(1);
   }
 }
+
 
 .sidebar {
-  width: 12vw;
+  width: 15vw;
   height: 100%;
+  border-right: 1px solid #3f3f3f;
 }
 
 .sidebar-item-icon {
@@ -170,10 +172,7 @@ button {
   vertical-align: super;
 }
 
-.window-title {
-  margin-bottom: 0.5em;
-  padding: 0.5em;
-}
+
 
 .dot {
   width: .5em;
@@ -182,11 +181,20 @@ button {
   display: inline-block;
 }
 
+.window-title-text {
+  font-size: .5em;
+  font-weight: 400;
+}
+
 input.window-title-button,
 button.window-title-button {
   width: .5em;
   height: .5em;
   transition: background-color 0.25s;
+}
+.window-title-button {
+  padding-left: .2em;
+  padding-bottom: .15em;
 }
 
 .window-title-button-close-icon {
@@ -213,3 +221,36 @@ button.window-title-button {
   background-color: #4dff4d;
 }
 
+.window-title {
+  /* round top corners */
+  border-top-left-radius: 0.5em;
+  border-top-right-radius: 0.5em;
+  /* border left, top, and right side */
+  border-left: 1px solid #3f3f3f;
+  border-top: 1px solid #3f3f3f;
+  border-right: 1px solid #3f3f3f;
+  /* padding, only left and right */
+  padding-left: .5em;
+  padding-right: .5em;
+}
+
+@media screen and (prefers-color-scheme: dark) {
+  .window-title {
+    color: #f6f6f6;
+    background-color: #0f0f0f;
+  }
+}
+
+@media screen and (prefers-color-scheme: light) {
+  .window-title {
+    color: #0f0f0f;
+    background-color: #f6f6f6;
+  }
+}
+
+@media screen and (prefers-color-scheme: no-preference) {
+  .window-title {
+    color: #0f0f0f;
+    background-color: #f6f6f6;
+  }
+}

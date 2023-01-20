@@ -37,17 +37,17 @@ impl Component for Window {
         let id = ctx.props().id.clone();
 
         html! {
-            <div class="window column" style={format!("width={}; height={};", width, height)} class={class} id={id}>
+            <div class="window column" style={format!("width={width}; height={height};")} class={class} id={id}>
                 <div class="window-title row flex-center">
                     <div class="window-title-text">{title}</div>
                     <div class="window-title-button window-title-button-close">
-                        <button type="button" onclick={onclose}><span class="window-title-button-close-icon dot"></span></button>
+                        <button type="button" onclick={onclose} class="window-title-button-close-icon dot no-padding no-margin"></button>
                     </div>
                     <div class="window-title-button window-title-button-minimize">
-                        <button type="button" onclick={onminimize}><span class="window-title-button-minimize-icon dot"></span></button>
+                        <button type="button" onclick={onminimize} class="window-title-button-minimize-icon dot no-padding no-margin"></button>
                     </div>
                     <div class="window-title-button window-title-button-maximize">
-                        <button type="button" onclick={onmaximize}><span class="window-title-button-maximize-icon dot"></span></button>
+                        <button type="button" onclick={onmaximize} class="window-title-button-maximize-icon dot no-padding no-margin"></button>
                     </div>
                 </div>
                 <div class="window-content container">
