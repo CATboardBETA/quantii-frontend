@@ -54,9 +54,9 @@ pub fn app() -> Html {
             <Sidebar items={items} />
             <Desktop class="desktop no-padding no-margin">
                 <Window
-                    width=500
-                    height=500
-                    title="Test"
+                    width=5000
+                    height=5000
+                    title="Test Window"
                     onclose={onclose}
                     onminimize={onminimize}
                     onmaximize={onmaximize}

@@ -38,24 +38,16 @@ impl Component for Window {
 
         html! {
             <div class="window column" style={format!("width={}; height={};", width, height)} class={class} id={id}>
-                <div class="window-title row">
+                <div class="window-title row flex-center">
                     <div class="window-title-text">{title}</div>
-                    <div class="window-title-buttons row">
-                        <div class="window-title-button window-title-button-close">
-                            <button type="button" class="window-title-button-close-button" onclick={onclose}>
-                                <span class="dot window-title-button-close-icon window-button"></span>
-                            </button>
-                        </div>
-                        <div class="window-title-button window-title-button-minimize">
-                            <button type="button" class="window-title-button-minimize-button" onclick={onminimize}>
-                                <span class="dot window-title-button-minimize-icon window-button"></span>
-                            </button>
-                        </div>
-                        <div class="window-title-button window-title-button-maximize">
-                            <button type="button" class="window-title-button-maximize-button" onclick={onmaximize}>
-                                <span class="dot window-title-button-maximize-icon window-button"></span>
-                            </button>
-                        </div>
+                    <div class="window-title-button window-title-button-close">
+                        <button type="button" onclick={onclose}><span class="window-title-button-close-icon dot"></span></button>
+                    </div>
+                    <div class="window-title-button window-title-button-minimize">
+                        <button type="button" onclick={onminimize}><span class="window-title-button-minimize-icon dot"></span></button>
+                    </div>
+                    <div class="window-title-button window-title-button-maximize">
+                        <button type="button" onclick={onmaximize}><span class="window-title-button-maximize-icon dot"></span></button>
                     </div>
                 </div>
                 <div class="window-content container">

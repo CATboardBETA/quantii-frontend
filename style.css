@@ -170,16 +170,26 @@ button {
   vertical-align: super;
 }
 
+.window-title {
+  margin-bottom: 0.5em;
+  padding: 0.5em;
+}
+
 .dot {
-  height: 0.5em;
-  width: 0.5em;
+  width: .5em;
+  height: .5em;
   border-radius: 50%;
   display: inline-block;
 }
 
+input.window-title-button,
+button.window-title-button {
+  width: .5em;
+  height: .5em;
+  transition: background-color 0.25s;
+}
+
 .window-title-button-close-icon {
-  width: 0.5em;
-  height: 0.5em;
   background-color: #ff0000;
 }
 
@@ -188,8 +198,6 @@ button {
 }
 
 .window-title-button-minimize-icon {
-  width: 0.5em;
-  height: 0.5em;
   background-color: #ffcc00;
 }
 
@@ -198,11 +206,10 @@ button {
 }
 
 .window-title-button-maximize-icon {
-  width: 0.5em;
-  height: 0.5em;
   background-color: #00cc00;
 }
 
 .window-title-button-maximize-icon:hover {
   background-color: #4dff4d;
 }
+
