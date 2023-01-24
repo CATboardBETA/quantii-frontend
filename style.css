@@ -172,7 +172,9 @@ button {
   vertical-align: super;
 }
 
-
+.window {
+  position: absolute;
+}
 
 .dot {
   width: .5em;
