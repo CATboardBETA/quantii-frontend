@@ -1,5 +1,6 @@
+use wasm_bindgen::closure::WasmClosureFnOnce;
+use web_sys::*;
 use yew::prelude::*;
-use wasm_bindgen::JsCast;
 
 #[derive(Clone, PartialEq, Properties)]
 pub struct WindowProps {
@@ -51,29 +52,47 @@ impl Component for Window {
             let x = down_event.client_x() - window_rect.left() as i32;
             let y = down_event.client_y() - window_rect.top() as i32;
 
-            let onmousemove = Callback::from(move |move_event: MouseEvent| {
+            let onmousemove = |move_event: MouseEvent| {
+                let mut clone_x = 0;
+
+                i32::clone_from(&mut clone_x, &x);
                 let window = web_sys::window().unwrap();
                 let document = window.document().unwrap();
-                let window_element = document.get_element_by_id(&id).unwrap();
+                let window_element: Element = document.get_element_by_id(&id).unwrap();
 
-                let left = move_event.client_x() - x;
+                let left = move_event.client_x() - clone_x;
                 let top = move_event.client_y() - y;
 
-                window_element.set_style("left", &format!("{}px", left)).unwrap();
-                window_element.set_style("top", &format!("{}px", top)).unwrap();
-            });
-            
-            let onmouseup = Callback::from(move |up_event: MouseEvent| {
+                window_element
+                    .set_attribute("style", &format!("left: {}px; top: {}px;", left, top))
+                    .unwrap();
+            };
+
+            let onmouseup = |up_event: MouseEvent| {
                 let window = web_sys::window().unwrap();
                 let document = window.document().unwrap();
-                let window_element = document.get_element_by_id(&id).unwrap();
+                let window_element = document.get_element_by_id(&id.clone()).unwrap();
 
                 let left = up_event.client_x() - x;
                 let top = up_event.client_y() - y;
 
-                window_element.set_style("left", &format!("{}px", left)).unwrap();
-                window_element.set_style("top", &format!("{}px", top)).unwrap();
-            });
+                window_element
+                    .set_attribute("style", &format!("left: {}px; top: {}px;", left, top))
+                    .unwrap();
+            };
+
+            if (header_rect.bottom() < x as f64)
+                && ((x as f64) < header_rect.top())
+                && (header_rect.left() < y as f64)
+                && ((y as f64) < header_rect.right())
+            {
+                window
+                    .add_event_listener_with_callback("mousemove", js_sys::Function::from(onmousemove.into_js_function()).as_ref())
+                    .unwrap();
+                window
+                    .add_event_listener_with_callback("mouseup", js_sys::Function::from(onmouseup.into_js_function()).as_ref())
+                    .unwrap();
+            }
         });
 
         // We need to re-clone the ID here because we moved it into the `onmousedown` callback

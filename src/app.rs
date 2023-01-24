@@ -1,8 +1,8 @@
 #![allow(non_snake_case)]
 
-use std::sync::Mutex;
 use rand::prelude::ThreadRng;
 use rand::RngCore;
+use std::sync::Mutex;
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
 
@@ -75,7 +75,11 @@ fn random_id(mut rng: ThreadRng) -> String {
     let mut id: u32 = rng.next_u32();
     let mut not_foundid: bool = true;
     while not_foundid {
-        if USED_IDS.lock().expect("Wha-whoa, spaghet-io!").contains(&id) {
+        if USED_IDS
+            .lock()
+            .expect("Wha-whoa, spaghet-io!")
+            .contains(&id)
+        {
             id = rng.next_u32();
         } else {
             USED_IDS.lock().expect("Wha-whoa, spaghet-io!").push(id);
