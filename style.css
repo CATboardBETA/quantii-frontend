@@ -234,6 +234,9 @@ button.window-title-button {
   /* padding, only left and right */
   padding-left: .5em;
   padding-right: .5em;
+
+  cursor: pointer;
+
 }
 
 @media screen and (prefers-color-scheme: dark) {

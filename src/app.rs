@@ -1,9 +1,9 @@
 #![allow(non_snake_case)]
 
+use gloo_console::log;
 use rand::prelude::ThreadRng;
 use rand::RngCore;
 use std::sync::Mutex;
-use wasm_bindgen::prelude::*;
 use yew::prelude::*;
 
 mod components;
@@ -13,22 +13,13 @@ pub type UsedIds = Vec<u32>;
 
 pub static USED_IDS: Mutex<UsedIds> = Mutex::new(vec![]);
 
-#[wasm_bindgen]
-extern "C" {
-    #[wasm_bindgen(js_namespace = ["window", "__TAURI__", "tauri"])]
-    async fn invoke(cmd: &str, args: JsValue) -> JsValue;
-
-    #[wasm_bindgen(js_namespace = console)]
-    fn log(s: &str);
-}
-
 #[function_component(App)]
 pub fn app() -> Html {
     let thread_rng: ThreadRng = rand::thread_rng();
 
     let launch_window = || {};
     let home_callback: Callback<MouseEvent, ()> = Callback::from(move |_| {
-        log("Home");
+        log!("Home");
         launch_window()
     });
 
