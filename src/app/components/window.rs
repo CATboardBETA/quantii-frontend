@@ -1,8 +1,8 @@
 use gloo_events::EventListener;
 use gloo_utils::document;
+use quantii_types::CopyFnMut1;
 use wasm_bindgen::JsCast;
 use web_sys::{Element, HtmlElement};
-use yew::html::IntoPropValue;
 
 use yew::prelude::*;
 
@@ -108,15 +108,15 @@ impl Component for Window {
                     .unwrap();
             };
             // Predefining closures so they can be used in `mouseup`
-            let mut mousedown: Box<dyn FnMut(&Event)> = Box::new(|_: &Event| {});
-            let mut mousemove: Box<dyn FnMut(&Event)> = Box::new(|_: &Event| {});
-            let mut mouseup: Box<dyn FnMut(&Event)> = Box::new(|_: &Event| {});
-            mousedown = Box::new(move |_: &Event| {
+            let mut mousedown: CopyFnMut1<&Event> = CopyFnMut1::new(|_: &Event| {});
+            let mut mousemove: CopyFnMut1<&Event> = CopyFnMut1::new(|_: &Event| {});
+            let mut mouseup: CopyFnMut1<&Event> =  CopyFnMut1::new(|_: &Event| {});
+            mousedown = CopyFnMut1::new(move |_: &Event| {
                 let full_ref = full_ref.clone();
                 let header_id = header_id.clone();
                 let move_window = move_window.clone();
                 let resize_window = resize_window.clone();
-                mousemove = Box::new(move |event: &Event| {
+                mousemove = CopyFnMut1::new(move |event: &Event| {
                     let event = event.dyn_ref::<MouseEvent>().unwrap();
                     let full_ref_htmlelement = full_ref.clone().dyn_into::<HtmlElement>().unwrap();
                     let x = event.client_x();
@@ -151,12 +151,10 @@ impl Component for Window {
                         // They clicked on the inside of the window, so we don't need to do anything
                     }
                 });
+
                 let mousemove_listener: EventListener = EventListener::new(&document, "mousemove", mousemove);
                 let mousedown_listener: EventListener = EventListener::new(&document, "mousedown", mousedown);
                 let mouseup_listener: EventListener = EventListener::new(&document, "mouseup", mouseup);
-
-
-
             });
         } else {
             // It's not the first render, so all this has already been done
