@@ -90,7 +90,7 @@ impl Component for Window {
             let header_id = ctx.props().id.clone() + "-header";
 
             let full_ref2 = full_ref.clone();
-            let resize_window = move |x: i32, y: i32| {
+            let resize_window = |x: i32, y: i32| {
                 let width = full_ref2.client_width() + x;
                 let height = full_ref2.client_height() + y;
                 full_ref2
@@ -99,7 +99,7 @@ impl Component for Window {
             };
 
             let full_ref3 = full_ref.clone();
-            let move_window = move |x: i32, y: i32| {
+            let move_window = |x: i32, y: i32| {
                 let full_ref_htmlelement = full_ref3.clone().dyn_into::<HtmlElement>().unwrap();
                 let left = full_ref_htmlelement.offset_left() + x;
                 let top = full_ref_htmlelement.offset_top() + y;
@@ -111,12 +111,14 @@ impl Component for Window {
             let mut mousedown: CopyFnMut1<&Event> = CopyFnMut1::new(|_: &Event| {});
             let mut mousemove: CopyFnMut1<&Event> = CopyFnMut1::new(|_: &Event| {});
             let mut mouseup: CopyFnMut1<&Event> =  CopyFnMut1::new(|_: &Event| {});
-            mousedown = CopyFnMut1::new(move |_: &Event| {
-                let full_ref = full_ref.clone();
-                let header_id = header_id.clone();
+            let full_ref1 = &full_ref;
+            let header_id1 = header_id.clone();
+            mousedown = CopyFnMut1::new(|_: &Event| {
+                let full_ref = full_ref1.clone();
+                let header_id = header_id1.clone();
                 let move_window = move_window.clone();
                 let resize_window = resize_window.clone();
-                mousemove = CopyFnMut1::new(move |event: &Event| {
+                mousemove = CopyFnMut1::new(|event: &Event| {
                     let event = event.dyn_ref::<MouseEvent>().unwrap();
                     let full_ref_htmlelement = full_ref.clone().dyn_into::<HtmlElement>().unwrap();
                     let x = event.client_x();
